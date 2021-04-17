@@ -8,7 +8,7 @@ import static org.mockito.Mockito.*;
 
 class Ex11Test {
     private final SMSGateway smsGateway = mock(SMSGateway.class);
-    private final ArgumentCaptor<SMS> volunteerArgumentCaptor = ArgumentCaptor.forClass(SMS.class);
+    private final ArgumentCaptor<SMS> smsArgumentCaptor = ArgumentCaptor.forClass(SMS.class);
     private final Ex11 ex11 = new Ex11(smsGateway);
 
     private final String testPhoneNumber = "+48500500500";
@@ -43,8 +43,8 @@ class Ex11Test {
         // given & when
         ex11.wyslijSms(testPhoneNumber, testTextMessage);
         // then
-        Mockito.verify(smsGateway).send(volunteerArgumentCaptor.capture());
-        SMS smsCaptured = volunteerArgumentCaptor.getValue();
+        Mockito.verify(smsGateway).send(smsArgumentCaptor.capture());
+        SMS smsCaptured = smsArgumentCaptor.getValue();
         assertThat(smsCaptured.getPhoneNumber()).isEqualTo(testPhoneNumber);
         assertThat(smsCaptured.getText()).isEqualTo(testTextMessage);
     }
